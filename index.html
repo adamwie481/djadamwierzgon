@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<title></title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="icon"
+href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
+
+<style>
+
+:root{
+    --bg:#0f0f0f;
+    --card:#171717;
+    --gold:#d6b36a;
+    --text:#ffffff;
+    --muted:#bdbdbd;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+.btn i{
+    margin-right:8px;
+}
+
+.container{
+    width:min(1100px,90%);
+    margin:auto;
+}
+
+/* HERO */
+.hero-slogan{
+    font-size:clamp(1.3rem,3vw,2rem);
+    font-weight:300;
+    letter-spacing:1px;
+    color:#ffffff;
+    margin-bottom:40px;
+    line-height:1.4;
+}
+.hero{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url('images/hero-bg.png');
+
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:900px;
+}
+
+.hero h1{
+    font-size:clamp(3rem,8vw,6rem);
+    font-weight:800;
+    margin-bottom:15px;
+}
+
+.hero p{
+    color:var(--gold);
+    font-size:clamp(1rem,3vw,1.4rem);
+    letter-spacing:2px;
+    margin-bottom:40px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:15px 28px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.25s;
+}
+
+.btn-primary{
+    background:var(--gold);
+    color:#111;
+}
+
+.btn-secondary{
+    border:1px solid rgba(255,255,255,.25);
+    color:white;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+/* ABOUT */
+
+.about{
+    padding:120px 0;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:minmax(0,2fr) minmax(250px,1fr);
+    gap:70px;
+    align-items:center;
+}
+
+.about h2{
+    font-size:2.5rem;
+    margin-bottom:25px;
+}
+
+.about p{
+    color:var(--muted);
+    font-size:1.1rem;
+    line-height:1.9;
+}
+
+.services{
+    display:grid;
+    gap:15px;
+}
+
+.service{
+    background:var(--card);
+    padding:18px 22px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.05);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* REVIEWS */
+
+.reviews{
+    overflow:hidden;
+    padding-bottom:120px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:2.5rem;
+    margin-bottom:60px;
+}
+
+
+.review{
+    flex:0 0 320px;
+    scroll-snap-align:start;
+}
+
+.review{
+    width:320px;
+    flex-shrink:0;
+    background:var(--card);
+    border-radius:18px;
+    padding:30px;
+}
+
+
+.review{
+    background:var(--card);
+    border-radius:18px;
+    padding:30px;
+}
+
+.stars{
+    color:var(--gold);
+    margin-bottom:15px;
+    font-size:1.1rem;
+}
+
+.review p{
+    color:#d9d9d9;
+    line-height:1.8;
+}
+
+.review small{
+    display:block;
+    margin-top:20px;
+    color:#8f8f8f;
+}
+.review-slider{
+    overflow:hidden;
+    width:100%;
+}
+
+.review-track{
+    display:flex;
+    gap:25px;
+    width:max-content;
+    animation:scrollReviews 35s linear infinite;
+}
+
+@keyframes scrollReviews{
+    from{
+        transform:translateX(0);
+    }
+    to{
+        transform:translateX(calc(-50% - 12.5px));
+    }
+}
+
+.reviews-source{
+    text-align:center;
+    color:var(--muted);
+    margin:-40px auto 50px;
+    max-width:600px;
+    line-height:1.7;
+}
+
+.reviews-source i{
+    color:#1877f2;
+    margin-right:8px;
+}
+
+.reviews-source a,
+.reviews-source a:visited,
+.reviews-source a:hover,
+.reviews-source a:active{
+    color: var(--muted);
+    text-decoration: none;
+}
+
+/* CONTACT */
+
+.contact{
+    padding:120px 0;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.contact h2{
+    font-size:2.8rem;
+    margin-bottom:15px;
+}
+
+.contact-text{
+    color:var(--muted);
+    margin-bottom:40px;
+}
+
+.phone,
+.email{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+}
+
+.phone{
+    text-decoration:none;
+    color:white;
+    font-size:clamp(1.3rem,5vw,2.8rem);
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.email{
+    color:var(--gold);
+    text-decoration:none;
+    font-size:clamp(.95rem,3vw,1.5rem);
+    font-weight:600;
+    margin-bottom:35px;
+}
+
+.email:hover{
+    color:#fff;
+}
+.socials{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.socials a{
+    text-decoration:none;
+    color:white;
+    border:1px solid rgba(255,255,255,.15);
+    padding:14px 24px;
+    border-radius:999px;
+    transition:.25s;
+}
+
+.socials a:hover{
+    background:var(--gold);
+    color:#111;
+    border-color:var(--gold);
+}
+
+.socials-wrapper{
+    margin-top:10px;
+}
+
+.socials-title{
+    text-align:center;
+    margin-bottom:15px;
+    color:var(--muted);
+    font-size:1rem;
+    letter-spacing:1px;
+}
+
+.socials-heading{
+    font-size:2.2rem;
+    font-weight:700;
+    margin-bottom:25px;
+    color:var(--gold);
+}
+
+.instagram{
+    padding-bottom:120px;
+}
+
+.instagram-desc{
+    text-align:center;
+    color:var(--muted);
+    max-width:700px;
+    margin:0 auto 50px;
+    line-height:1.8;
+}
+
+.reels-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.reel-card{
+    position:relative;
+    overflow:hidden;
+    border-radius:18px;
+    text-decoration:none;
+    display:block;
+    background:var(--card);
+}
+
+.reel-card img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    display:block;
+}
+
+.reel-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.play{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    border:2px solid #fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    margin-bottom:15px;
+    color:#fff;
+}
+
+.reel-title{
+    color:#fff;
+    font-weight:600;
+}
+
+.social-section{
+    padding:120px 0;
+    text-align:center;
+}
+
+.social-description{
+    color:var(--muted);
+    margin:-25px auto 40px;
+    max-width:650px;
+    line-height:1.8;
+}
+
+.socials{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.socials a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:white;
+    border:1px solid rgba(255,255,255,.15);
+    padding:16px 28px;
+    border-radius:999px;
+    transition:.25s;
+    font-weight:600;
+}
+
+.socials a i{
+    font-size:1.1rem;
+}
+
+.socials a:hover{
+    background:var(--gold);
+    color:#111;
+    border-color:var(--gold);
+    transform:translateY(-3px);
+}
+
+.faq{
+    padding:120px 0;
+}
+
+.faq-item{
+    background:var(--card);
+    border-radius:18px;
+    margin-bottom:18px;
+    border:1px solid rgba(255,255,255,.05);
+    overflow:hidden;
+}
+
+.faq-item summary{
+    list-style:none;
+    cursor:pointer;
+    padding:28px;
+    color:var(--gold);
+    font-size:1.2rem;
+    font-weight:600;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.faq-item summary::-webkit-details-marker{
+    display:none;
+}
+
+.faq-item summary::after{
+    content:"›";
+    font-size:2rem;
+    line-height:1;
+    transition:transform .25s ease;
+    color:var(--gold);
+}
+
+.faq-item[open] summary::after{
+    transform:rotate(90deg);
+}
+
+.faq-item p{
+    padding:0 28px 28px;
+    color:var(--muted);
+    line-height:1.8;
+}
+footer{
+    padding:30px;
+    text-align:center;
+    color:#666;
+}
+
+
+@media (max-width: 900px){
+
+    .reels-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media (max-width: 600px){
+
+    .reels-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media (max-width: 768px){
+
+    .about-grid > div:first-child{
+        max-width:550px;
+        margin:0 auto;
+    }
+
+
+}
+
+@media (max-width: 768px){
+
+    .about{
+        padding:80px 0;
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+
+    .about h2{
+        font-size:2rem;
+        margin-bottom:20px;
+    }
+
+    .about p{
+        font-size:1rem;
+        line-height:1.8;
+    }
+
+    .services{
+        width:100%;
+    }
+
+}
+
+@media (max-width: 768px){
+
+    .review{
+        width: 280px;
+        flex: 0 0 280px;
+        padding: 24px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1 id="brand-name"></h1>
+
+        <div class="hero-slogan">
+			Noc pełna muzyki?<br>
+			Zagrajmy to razem!
+		</div>
+
+        <div class="buttons">
+
+			<a href="#oferta" class="btn btn-primary">
+				Sprawdź ofertę
+			</a>
+
+			<a href="" class="btn btn-secondary" id="hero-phone">
+				<i class="fa-solid fa-phone"></i>
+				Zadzwoń
+			</a>
+
+			<a href="" class="btn btn-secondary" id="hero-email">
+				<i class="fa-solid fa-envelope"></i>
+				E-mail
+			</a>
+
+		</div>
+
+    </div>
+
+</section>
+
+<section id="oferta" class="about">
+
+    <div class="container">
+
+        <div class="about-grid">
+
+            <div>
+
+                <h2>Oprawa muzyczna wydarzeń</h2>
+
+                <p>
+                    Prowadzę imprezy okolicznościowe, urodziny, rocznice ślubu,
+                    bale karnawałowe oraz wydarzenia rodzinne.
+                    Dbam o odpowiedni klimat, dobrą muzykę i świetną atmosferę,
+                    dzięki której goście długo wspominają każdą imprezę.
+                </p>
+
+            </div>
+
+            <div class="services">
+
+                <div class="service">Urodziny</div>
+                <div class="service">Rocznice ślubu</div>
+				<div class="service">Wesela</div>
+                <div class="service">Karnawały</div>
+                <div class="service">Imprezy rodzinne</div>
+                <div class="service">Imprezy okolicznościowe</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="instagram">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Zobacz moje materiały
+        </h2>
+
+        <p class="instagram-desc">
+            Nagrania z imprez, relacje i materiały publikowane na Instagramie.
+        </p>
+
+        <div class="reels-grid">
+
+            <a class="reel-card" href="https://www.instagram.com/djadamwierzgon/reel/DYL9gQPqn5H/" target="_blank">
+                <img src="images/instagram-cover1.png" alt="">
+                <div class="reel-overlay">
+                    <div class="play">▶</div>
+                    <div class="reel-title">Zobacz materiał</div>
+                </div>
+            </a>
+
+            <a class="reel-card" href="https://www.instagram.com/djadamwierzgon/reel/DXRR23ejeEx/" target="_blank">
+                <img src="images/instagram-cover2.png" alt="">
+                <div class="reel-overlay">
+                    <div class="play">▶</div>
+                    <div class="reel-title">Zobacz materiał</div>
+                </div>
+            </a>
+
+            <a class="reel-card" href="https://www.instagram.com/djadamwierzgon/reel/DW_D9yLjR6p/" target="_blank">
+                <img src="images/instagram-cover3.png" alt="">
+                <div class="reel-overlay">
+                    <div class="play">▶</div>
+                    <div class="reel-title">Zobacz materiał</div>
+                </div>
+            </a>
+
+            <a class="reel-card" href="https://www.instagram.com/djadamwierzgon/reel/DWI-VCODUNP/" target="_blank">
+                <img src="images/instagram-cover4.png" alt="">
+                <div class="reel-overlay">
+                    <div class="play">▶</div>
+                    <div class="reel-title">Zobacz materiał</div>
+                </div>
+            </a>
+
+            <a class="reel-card" href="https://www.instagram.com/djadamwierzgon/reel/DPMhmQ7jW-T/" target="_blank">
+                <img src="images/instagram-cover5.png" alt="">
+                <div class="reel-overlay">
+                    <div class="play">▶</div>
+                    <div class="reel-title">Zobacz materiał</div>
+                </div>
+            </a>
+
+            <a class="reel-card" href="https://www.instagram.com/djadamwierzgon/reel/DRXqsGQjV1H/" target="_blank">
+                <img src="images/instagram-cover6.png" alt="">
+                <div class="reel-overlay">
+                    <div class="play">▶</div>
+                    <div class="reel-title">Zobacz materiał</div>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="social-section">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Sprawdź wszystkie moje sociale
+        </h2>
+
+        <p class="social-description">
+            Zobacz najnowsze materiały, relacje z imprez i kulisy mojej pracy.
+        </p>
+
+        <div class="socials">
+
+            <a href="" target="_blank" id="facebook-link">
+                <i class="fa-brands fa-facebook-f"></i>
+                Facebook
+            </a>
+
+            <a href="" target="_blank" id="instagram-link">
+                <i class="fa-brands fa-instagram"></i>
+                Instagram
+            </a>
+
+            <a href="" target="_blank" id="tiktok-link">
+                <i class="fa-brands fa-tiktok"></i>
+                TikTok
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="reviews">
+
+    <div class="container">
+
+        <h2 class="section-title">Opinie klientów</h2>
+		
+		<p class="reviews-source">
+			<a href="" target="_blank" id="reviews-facebook-link">
+				<i class="fa-brands fa-facebook-f"></i>
+				Opinie pochodzą z mojego profilu na Facebooku
+			</a>
+		</p>
+		
+        <div class="review-slider">
+			
+			<div class="review-track" id="review-track"></div>
+        
+		</div>
+
+    </div>
+
+</section>
+
+
+<section class="faq">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Najczęściej zadawane pytania
+        </h2>
+
+        <details class="faq-item">
+            <summary>Na jakim obszarze działasz?</summary>
+            <p>
+                Pochodzę z Rybnika i prowadzę imprezy na terenie całego Śląska.
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Czy mogę wybrać muzykę na swoją imprezę?</summary>
+            <p>
+                Oczywiście. Przed wydarzeniem ustalimy Wasze ulubione gatunki muzyczne, klimat imprezy oraz utwory, które koniecznie powinny się pojawić. Dzięki temu oprawa muzyczna będzie dopasowana do Waszych oczekiwań.
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Czy przyjmujesz dedykacje i życzenia od gości?</summary>
+            <p>
+                W trakcie imprezy goście mogą zgłaszać swoje propozycje utworów. Zawsze staram się dopasować repertuar do atmosfery i charakteru wydarzenia.
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Czy prowadzisz animacje i zabawy taneczne?</summary>
+            <p>
+                Tak. Prowadzę animacje taneczne oraz integrację gości na parkiecie. To świetny sposób na rozkręcenie imprezy i wspólną zabawę.
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Jakie imprezy obsługujesz?</summary>
+            <p>
+                Prowadzę między innymi urodziny, jubileusze, rocznice ślubu, wesela, imprezy rodzinne, bale karnawałowe oraz różnego rodzaju wydarzenia okolicznościowe.
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Jak mogę sprawdzić Twoje realizacje?</summary>
+            <p>
+                Na stronie znajdziesz materiały z imprez oraz linki do moich profili w mediach społecznościowych, gdzie regularnie publikuję nowe nagrania i relacje.
+            </p>
+        </details>
+
+    </div>
+
+</section>
+
+
+<section id="kontakt" class="contact">
+
+    <div class="container">
+
+        <h2>Skontaktuj się</h2>
+
+        <p class="contact-text">
+            Porozmawiajmy o Twojej imprezie.
+        </p>
+
+        <a href="" class="phone" id="contact-phone"></a>
+
+		<a href="" class="email" id="contact-email"></a>
+
+    </div>
+
+</section>
+
+<footer id="footer"></footer>
+
+<script>
+
+const CONFIG = {
+    NAME: "DJ Adam Wierzgoń",
+    TAGLINE: "Muzyka • Energia • Dobra Zabawa",
+    PHONE: "511776380",
+    EMAIL: "wierzgon.adam@gmail.com",
+    COUNTRY_CODE: "+48",
+
+    FACEBOOK: "https://www.facebook.com/p/DJ-Adam-Wierzgo%C5%84-61573463933834/",
+    INSTAGRAM: "https://www.instagram.com/djadamwierzgon/",
+    TIKTOK: "https://www.tiktok.com/@djadamwierzgon/"
+};
+
+
+
+// ===== AUTOMATYCZNE FORMATOWANIE =====
+
+const PHONE_DISPLAY =
+`${CONFIG.COUNTRY_CODE} ${CONFIG.PHONE.replace(
+    /(\d{3})(\d{3})(\d{3})/,
+    '$1 $2 $3'
+)}`;
+
+
+
+// ===== TYTUŁ STRONY =====
+
+document.title =
+`${CONFIG.NAME} | ${CONFIG.TAGLINE}`;
+
+
+
+// ===== NAZWA DJ =====
+
+document.getElementById("brand-name").textContent =
+CONFIG.NAME;
+
+
+
+// ===== TELEFON =====
+
+document.getElementById("hero-phone").href =
+`tel:${CONFIG.PHONE}`;
+
+document.getElementById("contact-phone").href =
+`tel:${CONFIG.PHONE}`;
+
+document.getElementById("contact-phone").innerHTML =
+`<i class="fa-solid fa-phone"></i> ${PHONE_DISPLAY}`;
+
+
+
+// ===== EMAIL =====
+
+document.getElementById("hero-email").href =
+`mailto:${CONFIG.EMAIL}`;
+
+document.getElementById("contact-email").href =
+`mailto:${CONFIG.EMAIL}`;
+
+document.getElementById("contact-email").innerHTML =
+`<i class="fa-solid fa-envelope"></i> ${CONFIG.EMAIL}`;
+
+// ===== SOCIAL MEDIA =====
+
+document.getElementById("facebook-link").href =
+CONFIG.FACEBOOK;
+
+document.getElementById("instagram-link").href =
+CONFIG.INSTAGRAM;
+
+document.getElementById("tiktok-link").href =
+CONFIG.TIKTOK;
+
+document.getElementById("reviews-facebook-link").href =
+CONFIG.FACEBOOK;
+
+// ===== STOPKA =====
+
+document.getElementById("footer").innerHTML =
+`© ${new Date().getFullYear()} ${CONFIG.NAME}`;
+
+
+const REVIEWS = [
+    {
+        stars: 5,
+        text: "Polecam serdecznie! Super zabawa i muza! Super dj!"
+    },
+    {
+        stars: 5,
+        text: "Super dj zna się na robocie polecam 😊"
+    },
+    {
+		stars: 5,
+		text: "Mega impreza prowadzona przez Adama. Goście bawili się cudnie. Wesoły, uśmiechnięty. Bardzo dziękujemy i Megastycznie polecamy 💗💗"
+	},
+    {
+        stars: 5,
+        text: "Oprawa muzyczna pierwsza klasa. Polecam z całego serca. Zaproszeni goście zachwyceni imprezą. Najlepszą reklamą jest jednak hasło: Ej skąd macie takiego fajnego DJ-a. Pozdrawiam."
+    },
+    {
+        stars: 5,
+        text: "Polecam z całego serca ,super zabawy, muzyka dostosowana do każdego więc wszyscy dobrze się bawili i cena również bardzo dobra. POLECAM"
+    },
+	{
+        stars: 5,
+        text: "Polecam serdecznie! Jestem zadowolona z oprawy muzycznej mojej imprezy, goście również. Bardzo Panu Adamowi dziękuję"
+    },
+    {
+        stars: 5,
+        text: "Człowiek wielu talentów, niczym Leonardo Da Vinci - imprezę rozkręci, gniazdko w ścianie wymieni, taniec poprowadzi, a do tego nie używa alkoholu czy innych białych proszków typu mąka Basia. Polecam mocno."
+    }
+	
+];
+
+const reviewTrack = document.getElementById("review-track");
+
+// Duplikujemy tablicę dla płynnego nieskończonego przewijania
+[...REVIEWS, ...REVIEWS].forEach(review => {
+
+    const stars = "★".repeat(review.stars) +
+                  "☆".repeat(5 - review.stars);
+
+    reviewTrack.innerHTML += `
+        <div class="review">
+            <div class="stars">${stars}</div>
+            <p>${review.text}</p>
+        </div>
+    `;
+});
+
+</script>
+</body>
+</html>

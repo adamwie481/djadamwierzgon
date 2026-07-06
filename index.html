@@ -990,6 +990,15 @@ const reviewTrack = document.getElementById("review-track");
         </div>
     `;
 });
+if (!sessionStorage.getItem("visitCounted")) {
+
+	sessionStorage.setItem("visitCounted","1");
+	
+	fetch("https://twojadomena.pl/api/visit.php",{
+		method:"POST"
+	}).catch(()=>{});
+
+}
 
 </script>
 </body>

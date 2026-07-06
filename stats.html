@@ -1,40 +1,284 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Statystyki</title>
+<title>Statystyki strony</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+:root{
+    --bg:#0f0f0f;
+    --card:#171717;
+    --gold:#d6b36a;
+    --text:#ffffff;
+    --muted:#9e9e9e;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:var(--bg);
+    color:white;
+    padding:40px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:2.5rem;
+}
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+
+    margin-bottom:50px;
+
+}
+
+.card{
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    padding:30px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    transition:.25s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.label{
+
+    color:var(--muted);
+
+    margin-bottom:15px;
+
+    font-size:1rem;
+
+}
+
+.value{
+
+    font-size:2.6rem;
+
+    color:var(--gold);
+
+    font-weight:700;
+
+}
+
+.chart{
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    padding:30px;
+
+    margin-bottom:40px;
+
+}
+
+.table{
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+th{
+
+    background:#202020;
+
+    color:var(--gold);
+
+    padding:18px;
+
+    text-align:left;
+
+}
+
+td{
+
+    padding:16px 18px;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+}
+
+tr:hover{
+
+    background:#1d1d1d;
+
+}
+
+@media(max-width:700px){
+
+body{
+
+padding:20px;
+
+}
+
+.value{
+
+font-size:2rem;
+
+}
+
+}
+
+</style>
 
 </head>
 
 <body>
 
-<h1>Statystyki strony</h1>
+<div class="container">
 
-<h2>Łącznie:
-<span id="total"></span>
-</h2>
+<h1>📊 Statystyki strony</h1>
 
-<h2>Dzisiaj:
-<span id="today"></span>
-</h2>
+<div class="cards">
+
+<div class="card">
+
+<div class="label">
+Łącznie odwiedzin
+</div>
+
+<div id="total" class="value">0</div>
+
+</div>
+
+<div class="card">
+
+<div class="label">
+Dzisiaj
+</div>
+
+<div id="today" class="value">0</div>
+
+</div>
+
+<div class="card">
+
+<div class="label">
+Wczoraj
+</div>
+
+<div id="yesterday" class="value">0</div>
+
+</div>
+
+<div class="card">
+
+<div class="label">
+Ten miesiąc
+</div>
+
+<div id="month" class="value">0</div>
+
+</div>
+
+</div>
+
+<div class="chart">
 
 <canvas id="chart"></canvas>
 
+</div>
+
+<div class="table">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Data</th>
+
+<th>Odwiedziny</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
 <script>
 
-fetch("https://salonsamochodowy.5v.pl/api/stats.php")
+fetch("https://twojadomena.pl/api/stats.php")
+
 .then(r=>r.json())
+
 .then(data=>{
 
 document.getElementById("total").textContent=data.total;
+
 document.getElementById("today").textContent=data.today;
 
-const labels=data.chart.map(x=>x.date);
+document.getElementById("yesterday").textContent=data.yesterday;
+
+document.getElementById("month").textContent=data.month;
+
+const labels=data.chart.map(x=>{
+
+const d=new Date(x.date);
+
+return d.toLocaleDateString("pl-PL");
+
+});
+
 const visits=data.chart.map(x=>x.visits);
 
 new Chart(document.getElementById("chart"),{
@@ -43,19 +287,87 @@ type:"line",
 
 data:{
 
-labels,
+labels:labels,
 
 datasets:[{
 
-label:"Wejścia",
+label:"Odwiedziny",
 
 data:visits,
 
-fill:false
+borderColor:"#d6b36a",
+
+backgroundColor:"rgba(214,179,106,.15)",
+
+fill:true,
+
+tension:.35,
+
+pointRadius:4
 
 }]
 
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+
+labels:{
+
+color:"white"
+
 }
+
+}
+
+},
+
+scales:{
+
+x:{
+
+ticks:{color:"white"},
+
+grid:{color:"rgba(255,255,255,.08)"}
+
+},
+
+y:{
+
+beginAtZero:true,
+
+ticks:{color:"white"},
+
+grid:{color:"rgba(255,255,255,.08)"}
+
+}
+
+}
+
+}
+
+});
+
+const tbody=document.getElementById("tableBody");
+
+data.chart.slice().reverse().forEach(item=>{
+
+tbody.innerHTML+=`
+
+<tr>
+
+<td>${new Date(item.date).toLocaleDateString("pl-PL")}</td>
+
+<td>${item.visits}</td>
+
+</tr>
+
+`;
 
 });
 

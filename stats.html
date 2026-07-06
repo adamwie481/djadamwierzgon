@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Statystyki</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<h1>Statystyki strony</h1>
+
+<h2>Łącznie:
+<span id="total"></span>
+</h2>
+
+<h2>Dzisiaj:
+<span id="today"></span>
+</h2>
+
+<canvas id="chart"></canvas>
+
+<script>
+
+fetch("https://salonsamochodowy.5v.pl/api/stats.php")
+.then(r=>r.json())
+.then(data=>{
+
+document.getElementById("total").textContent=data.total;
+document.getElementById("today").textContent=data.today;
+
+const labels=data.chart.map(x=>x.date);
+const visits=data.chart.map(x=>x.visits);
+
+new Chart(document.getElementById("chart"),{
+
+type:"line",
+
+data:{
+
+labels,
+
+datasets:[{
+
+label:"Wejścia",
+
+data:visits,
+
+fill:false
+
+}]
+
+}
+
+});
+
+});
+
+</script>
+
+</body>
+
+</html>

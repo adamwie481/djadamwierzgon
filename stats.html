@@ -334,15 +334,28 @@ options: {
     maintainAspectRatio: false,
 
     plugins: {
-        legend: {
-            position: "bottom",
-            labels: {
-                color: "white",
-                boxWidth: 30,
-                padding: 15
-            }
+    legend: {
+        position: "bottom",
+        labels: {
+            color: "white",
+            boxWidth: 30,
+            padding: 15
         }
     },
+
+    tooltip: {
+        enabled: true,
+        displayColors: false,
+        callbacks: {
+            title: function(context) {
+                return context[0].label;
+            },
+            label: function(context) {
+                return "Odwiedziny: " + context.parsed.y;
+            }
+        }
+    }
+},
 
     scales: {
         x: {

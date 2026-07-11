@@ -329,36 +329,47 @@ borderWidth:3,
 
 },
 
-options:{
+options: {
+    responsive: true,
+    maintainAspectRatio: false,
 
-responsive:true,
-maintainAspectRatio:false,
+    plugins: {
+        legend: {
+            position: "bottom",
+            labels: {
+                color: "white",
+                boxWidth: 30,
+                padding: 15
+            }
+        }
+    },
 
-plugins:{
-    legend:{
-        position:"bottom",
-        labels:{
-            color:"white",
-            boxWidth:30,
-            padding:15
+    scales: {
+        x: {
+            ticks: {
+                color: "white",
+                maxRotation: 0,
+                autoSkip: true,
+                maxTicksLimit: window.innerWidth < 700 ? 4 : 10
+            },
+            grid: {
+                display: false
+            }
+        },
+
+        y: {
+            beginAtZero: true,
+            ticks: {
+                color: "white",
+                precision: 0
+            },
+            grid: {
+                color: "rgba(255,255,255,.08)"
+            }
         }
     }
 },
-
-scales:{
-
-x:{
-    ticks:{
-        color:"white",
-        maxRotation:0,
-        autoSkip:true,
-        maxTicksLimit: window.innerWidth < 700 ? 4 : 10
-    },
     grid:{
-        display:false
-    }
-},
-grid:{
 color:"rgba(255,255,255,.08)"
 }
 },

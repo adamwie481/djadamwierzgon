@@ -191,8 +191,12 @@ font-size:2rem;
 
 <div id="total" class="value">0</div>
 
+<div id="since"
+style="margin-top:12px;color:#9e9e9e;font-size:.9rem;">
+od ...
 </div>
 
+</div>
 <div class="card">
 
 <div class="label">
@@ -266,20 +270,16 @@ fetch("https://salonsamochodowy.5v.pl/api/stats.php")
 .then(data=>{
 
 document.getElementById("total").textContent=data.total;
-
 document.getElementById("today").textContent=data.today;
-
 document.getElementById("yesterday").textContent=data.yesterday;
-
 document.getElementById("month").textContent=data.month;
 
-const labels=data.chart.map(x=>{
+document.getElementById("since").textContent =
+"od " + new Date(data.since).toLocaleDateString("pl-PL");
 
-const d=new Date(x.date);
-
-return d.toLocaleDateString("pl-PL");
-
-});
+const labels=data.chart.map(x=>
+new Date(x.date).toLocaleDateString("pl-PL")
+);
 
 const visits=data.chart.map(x=>x.visits);
 
@@ -316,37 +316,33 @@ options:{
 responsive:true,
 
 plugins:{
-
 legend:{
-
 labels:{
-
 color:"white"
-
 }
-
 }
-
 },
 
 scales:{
 
 x:{
-
-ticks:{color:"white"},
-
-grid:{color:"rgba(255,255,255,.08)"}
-
+ticks:{
+color:"white"
+},
+grid:{
+color:"rgba(255,255,255,.08)"
+}
 },
 
 y:{
-
 beginAtZero:true,
-
-ticks:{color:"white"},
-
-grid:{color:"rgba(255,255,255,.08)"}
-
+ticks:{
+color:"white",
+precision:0
+},
+grid:{
+color:"rgba(255,255,255,.08)"
+}
 }
 
 }
@@ -357,18 +353,16 @@ grid:{color:"rgba(255,255,255,.08)"}
 
 const tbody=document.getElementById("tableBody");
 
-data.chart.slice().reverse().forEach(item=>{
+data.chart
+.slice()
+.reverse()
+.forEach(item=>{
 
-tbody.innerHTML+=`
-
+tbody.innerHTML += `
 <tr>
-
 <td>${new Date(item.date).toLocaleDateString("pl-PL")}</td>
-
 <td>${item.visits}</td>
-
 </tr>
-
 `;
 
 });
@@ -376,7 +370,7 @@ tbody.innerHTML+=`
 });
 
 </script>
-
+    
 </body>
 
 </html>

@@ -1,9 +1,17 @@
 <?php
+date_default_timezone_set('Europe/Warsaw');
+?>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Health Check</title>
+</head>
+<body>
 
-header("Content-Type: application/json");
+<h2>🟢 ONLINE</h2>
 
-echo json_encode([
-    "status" => "healthy",
-    "code" => 200,
-    "server_time" => date('Y-m-d H:i:s')
-]);
+<p>Data sprawdzenia: <?= date('d.m.Y H:i:s') ?></p>
+
+</body>
+</html>

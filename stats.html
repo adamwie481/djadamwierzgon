@@ -340,8 +340,10 @@ fill:true,
 
 tension:.35,
 
-pointRadius: window.innerWidth < 700 ? 2 : 4,
-pointHoverRadius:6,
+pointRadius: window.innerWidth < 700 ? 3 : 4,
+pointHoverRadius: 8,
+pointHitRadius: 25,
+hoverRadius: 10,
 borderWidth:3,
 
 }]
@@ -351,6 +353,11 @@ borderWidth:3,
 options: {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+        mode: "nearest",
+        axis: "x",
+        intersect: false
+    },
 
     plugins: {
     legend: {
@@ -363,17 +370,21 @@ options: {
     },
 
     tooltip: {
-        enabled: true,
-        displayColors: false,
-        callbacks: {
-            title: function(context) {
-                return context[0].label;
-            },
-            label: function(context) {
-                return "Odwiedziny: " + context.parsed.y;
-            }
+    enabled: true,
+    displayColors: false,
+    caretPadding: 10,
+    padding: 12,
+
+    callbacks: {
+        title: function(context) {
+            return "📅 " + context[0].label;
+        },
+
+        label: function(context) {
+            return "👥 Odwiedziny: " + context.parsed.y;
         }
     }
+}
 },
 
     scales: {

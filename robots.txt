@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://djadamwierzgon.pl/sitemap.xml

@@ -186,6 +186,20 @@ font-size:2rem;
 }
 
 }
+#tableFilter{
+    background:#171717;
+    color:white;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;
+    padding:10px 14px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+#tableFilter:focus{
+    outline:none;
+    border-color:#d6b36a;
+}
 
 </style>
 
@@ -261,8 +275,16 @@ Ten miesiąc
 </div>
 
 <div class="chart">
+    <canvas id="chart"></canvas>
+</div>
 
-<canvas id="chart"></canvas>
+<div style="margin-bottom:20px; display:flex; justify-content:flex-end;">
+
+    <select id="tableFilter">
+        <option value="30">Ostatnie 30 dni</option>
+        <option value="month">Ten miesiąc</option>
+        <option value="all" selected>Wszystkie dane</option>
+    </select>
 
 </div>
 

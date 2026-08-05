@@ -214,9 +214,9 @@ font-size:2rem;
 <div style="margin-bottom:20px; display:flex; justify-content:flex-end;">
 
     <select id="tableFilter">
-        <option value="30" selected>Ostatnie 30 dni</option>
+        <option value="30">Ostatnie 30 dni</option>
         <option value="month">Ten miesiąc</option>
-        <option value="all">Wszystkie dane</option>
+        <option value="all" selected>Wszystkie dane</option>
     </select>
 
 </div>
@@ -440,7 +440,17 @@ function refreshView(mode){
     }
     const total = filtered.reduce((sum, item) => sum + item.visits, 0);
     
-    const avg = filtered.length ? total / filtered.length : 0;
+    let days;
+
+    if(mode === "30"){
+        days = 30;
+    }else if(mode === "month"){
+        days = new Date().getDate(); // liczba dni, które minęły w miesiącu
+    }else{
+        days = filtered.length;
+    }
+    
+    const avg = days ? total / days : 0;
     
     document.getElementById("rangeVisits").textContent = total;
     
@@ -448,7 +458,7 @@ function refreshView(mode){
         avg.toFixed(1);
     
     document.getElementById("rangeAverageInfo").textContent =
-        "na podstawie " + filtered.length + " dni";
+            "na podstawie " + days + " dni";
     
     if(mode==="30"){
     

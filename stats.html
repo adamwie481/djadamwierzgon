@@ -281,9 +281,9 @@ Ten miesiąc
 <div style="margin-bottom:20px; display:flex; justify-content:flex-end;">
 
     <select id="tableFilter">
-        <option value="30">Ostatnie 30 dni</option>
+        <option value="30" selected>Ostatnie 30 dni</option>
         <option value="month">Ten miesiąc</option>
-        <option value="all" selected>Wszystkie dane</option>
+        <option value="all">Wszystkie dane</option>
     </select>
 
 </div>
@@ -334,25 +334,19 @@ document.getElementById("avgInfo").textContent =
 document.getElementById("since").textContent =
 "od " + new Date(data.since).toLocaleDateString("pl-PL");
 
-const labels=data.chart.map(x=>
-new Date(x.date).toLocaleDateString("pl-PL")
-);
+const allData = data.chart;
 
-const visits=data.chart.map(x=>x.visits);
-
-new Chart(document.getElementById("chart"),{
+let chart = new Chart(document.getElementById("chart"),{
 
 type:"line",
 
 data:{
 
-labels:labels,
+labels: [],
 
 datasets:[{
-
-label:"Odwiedziny",
-
-data:visits,
+    label:"Odwiedziny",
+    data:[],
 
 borderColor:"#d6b36a",
 
@@ -435,24 +429,69 @@ options: {
     }
 }
     });
-const tbody=document.getElementById("tableBody");
 
-data.chart
-.slice()
-.reverse()
-.forEach(item=>{
+const tbody = document.getElementById("tableBody");
+const filter = document.getElementById("tableFilter");
 
-tbody.innerHTML += `
-<tr>
-<td>${new Date(item.date).toLocaleDateString("pl-PL")}</td>
-<td>${item.visits}</td>
-</tr>
-`;
+function refreshView(mode){
 
+    let filtered = [...allData];
+
+    const today = new Date();
+
+    if(mode === "30"){
+
+        const date30 = new Date();
+        date30.setDate(today.getDate() - 29);
+
+        filtered = filtered.filter(x => new Date(x.date) >= date30);
+
+    }else if(mode === "month"){
+
+        filtered = filtered.filter(x=>{
+
+            const d = new Date(x.date);
+
+            return d.getMonth() === today.getMonth() &&
+                   d.getFullYear() === today.getFullYear();
+
+        });
+
+    }
+
+    chart.data.labels = filtered.map(x =>
+        new Date(x.date).toLocaleDateString("pl-PL")
+    );
+
+    chart.data.datasets[0].data = filtered.map(x => x.visits);
+
+    chart.update();
+
+    tbody.innerHTML = "";
+
+    filtered
+        .slice()
+        .reverse()
+        .forEach(item=>{
+
+            tbody.innerHTML += `
+            <tr>
+                <td>${new Date(item.date).toLocaleDateString("pl-PL")}</td>
+                <td>${item.visits}</td>
+            </tr>
+            `;
+
+        });
+
+}
+
+refreshView(filter.value);
+
+filter.addEventListener("change", () => {
+    refreshView(filter.value);
 });
-
+    
 });
-
 </script>
     
 </body>

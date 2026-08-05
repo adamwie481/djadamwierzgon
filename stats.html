@@ -216,20 +216,6 @@ font-size:2rem;
 <div class="card">
 
 <div class="label">
-Łącznie odwiedzin
-</div>
-
-<div id="total" class="value">0</div>
-
-<div id="since"
-style="margin-top:12px;color:#9e9e9e;font-size:.9rem;">
-od ...
-</div>
-
-</div>
-<div class="card">
-
-<div class="label">
 Dzisiaj
 </div>
 
@@ -249,11 +235,13 @@ Wczoraj
 
 <div class="card">
 
-<div class="label">
-Ten miesiąc
+<div class="card">
+
+<div id="rangeLabel" class="label">
+Ostatnie 30 dni
 </div>
 
-<div id="month" class="value">0</div>
+<div id="rangeVisits" class="value">0</div>
 
 </div>
 
@@ -263,9 +251,9 @@ Ten miesiąc
         Średnio / dzień
     </div>
 
-    <div id="avgMonth" class="value">0</div>
+    <div id="rangeAverage" class="value">0</div>
 
-    <div id="avgInfo"
+    <div id="rangeAverageInfo"
          style="margin-top:10px;color:#9e9e9e;font-size:.9rem;">
         na podstawie 0 dni
     </div>
@@ -322,17 +310,11 @@ fetch("https://salonsamochodowy.5v.pl/api/stats.php")
 
 .then(data=>{
 
-document.getElementById("total").textContent=data.total;
+
 document.getElementById("today").textContent=data.today;
 document.getElementById("yesterday").textContent=data.yesterday;
-document.getElementById("month").textContent=data.month;
-document.getElementById("avgMonth").textContent =
-    data.avgMonth.toFixed(1);
 
-document.getElementById("avgInfo").textContent =
-    "na podstawie " + data.avgDays + " dni";
-document.getElementById("since").textContent =
-"od " + new Date(data.since).toLocaleDateString("pl-PL");
+
 
 const allData = data.chart;
 
@@ -458,7 +440,34 @@ function refreshView(mode){
         });
 
     }
-
+    const total = filtered.reduce((sum, item) => sum + item.visits, 0);
+    
+    const avg = filtered.length ? total / filtered.length : 0;
+    
+    document.getElementById("rangeVisits").textContent = total;
+    
+    document.getElementById("rangeAverage").textContent =
+        avg.toFixed(1);
+    
+    document.getElementById("rangeAverageInfo").textContent =
+        "na podstawie " + filtered.length + " dni";
+    
+    if(mode==="30"){
+    
+        document.getElementById("rangeLabel").textContent =
+            "Ostatnie 30 dni";
+    
+    }else if(mode==="month"){
+    
+        document.getElementById("rangeLabel").textContent =
+            "Ten miesiąc";
+    
+    }else{
+    
+        document.getElementById("rangeLabel").textContent =
+            "Łącznie";
+    
+    }
     chart.data.labels = filtered.map(x =>
         new Date(x.date).toLocaleDateString("pl-PL")
     );

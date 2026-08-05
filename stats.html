@@ -245,11 +245,16 @@ Wczoraj
 
 <div class="card">
 
-<div id="rangeLabel" class="label">
-Ostatnie 30 dni
-</div>
+    <div id="rangeLabel" class="label">
+        Ostatnie 30 dni
+    </div>
 
-<div id="rangeVisits" class="value">0</div>
+    <div id="rangeVisits" class="value">0</div>
+
+    <div id="rangeInfo"
+         style="margin-top:10px;color:#9e9e9e;font-size:.9rem;">
+        od ...
+    </div>
 
 </div>
 
@@ -474,6 +479,30 @@ function refreshView(mode){
     
         document.getElementById("rangeLabel").textContent =
             "Łącznie";
+    
+    }
+    if(mode === "30"){
+        const firstDate = new Date(filtered[0].date);
+    
+        document.getElementById("rangeInfo").textContent =
+            "od " + firstDate.toLocaleDateString("pl-PL");
+    
+    }else if(mode === "month"){
+    
+        const monthName = new Date().toLocaleDateString("pl-PL",{
+            month:"long",
+            year:"numeric"
+        });
+    
+        document.getElementById("rangeInfo").textContent =
+            monthName.charAt(0).toUpperCase() + monthName.slice(1);
+    
+    }else{
+    
+        const firstDate = new Date(allData[0].date);
+    
+        document.getElementById("rangeInfo").textContent =
+            "od " + firstDate.toLocaleDateString("pl-PL");
     
     }
     chart.data.labels = filtered.map(x =>

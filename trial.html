@@ -242,6 +242,7 @@ body{
     overflow:hidden;
     width:100%;
     cursor:grab;
+    touch-action:pan-y;
 }
 
 .review-slider:active{
@@ -252,14 +253,12 @@ body{
     display:flex;
     gap:25px;
     width:max-content;
-    animation:scrollReviews 60s linear infinite;
     user-select:none;
     -webkit-user-select:none;
     will-change:transform;
 }
 
 .review-track.dragging{
-    animation:none;
     cursor:grabbing;
 }
 

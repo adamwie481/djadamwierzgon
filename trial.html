@@ -247,7 +247,19 @@ body{
     display:flex;
     gap:25px;
     width:max-content;
-    animation:scrollReviews 35s linear infinite;
+    animation:scrollReviews 60s linear infinite;
+    cursor:grab;
+    user-select:none;
+    -webkit-user-select:none;
+    touch-action:pan-y;
+}
+
+.review-track:active{
+    cursor:grabbing;
+}
+
+.review-track.paused{
+    animation-play-state:paused;
 }
 
 @keyframes scrollReviews{
@@ -1047,6 +1059,31 @@ const reviewTrack = document.getElementById("review-track");
             <p>${review.text}</p>
         </div>
     `;
+});
+	// ===== PAUZA OPINII PRZEZ PRZYTRZYMANIE =====
+
+let isPointerDown = false;
+
+reviewTrack.addEventListener("pointerdown", () => {
+    isPointerDown = true;
+    reviewTrack.classList.add("paused");
+});
+
+reviewTrack.addEventListener("pointerup", () => {
+    isPointerDown = false;
+    reviewTrack.classList.remove("paused");
+});
+
+reviewTrack.addEventListener("pointercancel", () => {
+    isPointerDown = false;
+    reviewTrack.classList.remove("paused");
+});
+
+reviewTrack.addEventListener("pointerleave", () => {
+    if (isPointerDown) {
+        isPointerDown = false;
+        reviewTrack.classList.remove("paused");
+    }
 });
 if (!sessionStorage.getItem("visitCounted")) {
 

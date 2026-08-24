@@ -270,14 +270,6 @@ body{
     padding:30px;
     pointer-events:none;
 }
-@keyframes scrollReviews{
-    from{
-        transform:translateX(0);
-    }
-    to{
-        transform:translateX(calc(-50% - 12.5px));
-    }
-}
 
 .reviews-source{
     text-align:center;
@@ -1068,31 +1060,124 @@ const reviewTrack = document.getElementById("review-track");
         </div>
     `;
 });
-	// ===== PAUZA OPINII PRZEZ PRZYTRZYMANIE =====
+// ===== AUTOMATYCZNE + RĘCZNE PRZEWIJANIE OPINII =====
 
-let isPointerDown = false;
+let reviewX = 0;
+let isDragging = false;
+let startX = 0;
+let startPosition = 0;
+let loopWidth = 0;
 
-reviewTrack.addEventListener("pointerdown", () => {
-    isPointerDown = true;
-    reviewTrack.classList.add("paused");
-});
+// Prędkość automatycznego przewijania
+// Większa liczba = szybciej
+const reviewSpeed = 35;
 
-reviewTrack.addEventListener("pointerup", () => {
-    isPointerDown = false;
-    reviewTrack.classList.remove("paused");
-});
+// Obliczenie szerokości jednej pełnej kopii opinii
+function calculateLoopWidth() {
+    const reviews = reviewTrack.children;
 
-reviewTrack.addEventListener("pointercancel", () => {
-    isPointerDown = false;
-    reviewTrack.classList.remove("paused");
-});
+    if (reviews.length < 2) return;
 
-reviewTrack.addEventListener("pointerleave", () => {
-    if (isPointerDown) {
-        isPointerDown = false;
-        reviewTrack.classList.remove("paused");
+    // Mamy dwie identyczne kopie opinii
+    const firstReview = reviews[0];
+    const secondCopyFirstReview = reviews[REVIEWS.length];
+
+    loopWidth =
+        secondCopyFirstReview.offsetLeft - firstReview.offsetLeft;
+}
+
+// Ustawienie początkowej pozycji
+calculateLoopWidth();
+
+window.addEventListener("resize", calculateLoopWidth);
+
+
+// Płynne automatyczne przewijanie
+let lastTime = performance.now();
+
+function animateReviews(currentTime) {
+
+    const deltaTime = currentTime - lastTime;
+    lastTime = currentTime;
+
+    if (!isDragging && loopWidth > 0) {
+
+        reviewX -= reviewSpeed * deltaTime / 1000;
+
+        // Nieskończona pętla
+        if (reviewX <= -loopWidth) {
+            reviewX += loopWidth;
+        }
+
+        reviewTrack.style.transform =
+            `translate3d(${reviewX}px, 0, 0)`;
     }
+
+    requestAnimationFrame(animateReviews);
+}
+
+requestAnimationFrame(animateReviews);
+
+
+// ===== MYSZKA + TELEFON =====
+
+reviewTrack.addEventListener("pointerdown", function(e) {
+
+    isDragging = true;
+
+    startX = e.clientX;
+    startPosition = reviewX;
+
+    reviewTrack.classList.add("dragging");
+
+    // Przejmujemy pointer
+    reviewTrack.setPointerCapture(e.pointerId);
+
 });
+
+
+reviewTrack.addEventListener("pointermove", function(e) {
+
+    if (!isDragging) return;
+
+    const difference = e.clientX - startX;
+
+    reviewX = startPosition + difference;
+
+    // Płynna nieskończona pętla
+    if (reviewX <= -loopWidth) {
+        reviewX += loopWidth;
+        startPosition += loopWidth;
+    }
+
+    if (reviewX > 0) {
+        reviewX -= loopWidth;
+        startPosition -= loopWidth;
+    }
+
+    reviewTrack.style.transform =
+        `translate3d(${reviewX}px, 0, 0)`;
+
+});
+
+
+function stopDragging(e) {
+
+    if (!isDragging) return;
+
+    isDragging = false;
+
+    reviewTrack.classList.remove("dragging");
+
+    try {
+        reviewTrack.releasePointerCapture(e.pointerId);
+    } catch (error) {}
+}
+
+
+reviewTrack.addEventListener("pointerup", stopDragging);
+
+reviewTrack.addEventListener("pointercancel", stopDragging);
 if (!sessionStorage.getItem("visitCounted")) {
 
 	sessionStorage.setItem("visitCounted","1");

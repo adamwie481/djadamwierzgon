@@ -241,6 +241,11 @@ body{
 .review-slider{
     overflow:hidden;
     width:100%;
+    cursor:grab;
+}
+
+.review-slider:active{
+    cursor:grabbing;
 }
 
 .review-track{
@@ -248,20 +253,24 @@ body{
     gap:25px;
     width:max-content;
     animation:scrollReviews 60s linear infinite;
-    cursor:grab;
     user-select:none;
     -webkit-user-select:none;
-    touch-action:pan-y;
+    will-change:transform;
 }
 
-.review-track:active{
+.review-track.dragging{
+    animation:none;
     cursor:grabbing;
 }
 
-.review-track.paused{
-    animation-play-state:paused;
+.review{
+    width:320px;
+    flex:0 0 320px;
+    background:var(--card);
+    border-radius:18px;
+    padding:30px;
+    pointer-events:none;
 }
-
 @keyframes scrollReviews{
     from{
         transform:translateX(0);

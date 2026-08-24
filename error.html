@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex, nofollow">
+
+<title>Wystąpił błąd | DJ Adam Wierzgoń</title>
+
+<link rel="icon"
+href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#0f0f0f;
+    --card:#171717;
+    --gold:#d6b36a;
+    --text:#ffffff;
+    --muted:#bdbdbd;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+
+    overflow:hidden;
+}
+
+.error-page{
+    width:min(700px,90%);
+    text-align:center;
+    padding:40px 20px;
+}
+
+.logo{
+    font-size:1.2rem;
+    font-weight:700;
+    letter-spacing:2px;
+    color:var(--gold);
+    margin-bottom:45px;
+}
+
+.error-code{
+    font-size:clamp(7rem,25vw,13rem);
+    line-height:.8;
+    font-weight:800;
+    color:var(--gold);
+    letter-spacing:-8px;
+    margin-bottom:35px;
+}
+
+.error-title{
+    font-size:clamp(1.7rem,5vw,2.7rem);
+    margin-bottom:20px;
+}
+
+.error-text{
+    color:var(--muted);
+    font-size:1.05rem;
+    line-height:1.8;
+    max-width:580px;
+    margin:0 auto 40px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+    padding:15px 28px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.25s;
+    cursor:pointer;
+}
+
+.btn-primary{
+    background:var(--gold);
+    color:#111;
+}
+
+.btn-secondary{
+    border:1px solid rgba(255,255,255,.25);
+    color:white;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.footer{
+    margin-top:60px;
+    color:#666;
+    font-size:.85rem;
+}
+
+@media(max-width:600px){
+
+    .error-code{
+        letter-spacing:-4px;
+    }
+
+    .error-text{
+        font-size:1rem;
+    }
+
+    .buttons{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .btn{
+        width:100%;
+        max-width:280px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<main class="error-page">
+
+    <div class="logo">
+        DJ ADAM WIERZGOŃ
+    </div>
+
+    <div class="error-code" id="error-code">
+        404
+    </div>
+
+    <h1 class="error-title" id="error-title">
+        Tej strony nie ma
+    </h1>
+
+    <p class="error-text" id="error-text">
+        Wygląda na to, że strona, której szukasz,
+        gdzieś się zgubiła.
+        <br>
+        Spokojnie — muzyka nadal gra. 🎵
+    </p>
+
+    <div class="buttons">
+
+        <a href="/" class="btn btn-primary">
+            Wróć na stronę główną
+        </a>
+
+        <a href="javascript:history.back()"
+           class="btn btn-secondary">
+            Wróć do poprzedniej strony
+        </a>
+
+    </div>
+
+    <div class="footer">
+        © <span id="year"></span> DJ Adam Wierzgoń
+    </div>
+
+</main>
+
+
+<script>
+
+const errors = {
+
+    400:{
+        title:"Nieprawidłowe żądanie",
+        text:"Wygląda na to, że wysłane żądanie było nieprawidłowe. Spróbuj ponownie."
+    },
+
+    401:{
+        title:"Brak autoryzacji",
+        text:"Nie masz uprawnień do uzyskania dostępu do tej strony."
+    },
+
+    403:{
+        title:"Brak dostępu",
+        text:"Ta strona istnieje, ale dostęp do niej jest obecnie niedozwolony."
+    },
+
+    404:{
+        title:"Tej strony nie ma",
+        text:"Wygląda na to, że strona, której szukasz, gdzieś się zgubiła.<br>Spokojnie — muzyka nadal gra. 🎵"
+    },
+
+    408:{
+        title:"Przekroczono czas oczekiwania",
+        text:"Serwer zbyt długo czekał na odpowiedź. Spróbuj ponownie."
+    },
+
+    429:{
+        title:"Za dużo żądań",
+        text:"Wysłano zbyt wiele żądań w krótkim czasie. Odczekaj chwilę i spróbuj ponownie."
+    },
+
+    500:{
+        title:"Coś poszło nie tak",
+        text:"Wystąpił nieoczekiwany problem po stronie serwera. Spróbuj ponownie za chwilę."
+    },
+
+    502:{
+        title:"Serwer jest niedostępny",
+        text:"Serwer otrzymał nieprawidłową odpowiedź. Spróbuj ponownie za chwilę."
+    },
+
+    503:{
+        title:"Chwilowa przerwa techniczna",
+        text:"Strona jest chwilowo niedostępna. Spróbuj ponownie za kilka minut."
+    },
+
+    504:{
+        title:"Serwer nie odpowiedział",
+        text:"Serwer zbyt długo nie odpowiadał. Spróbuj ponownie za chwilę."
+    }
+
+};
+
+
+// Pobieramy kod błędu z adresu:
+//
+// error.html?code=404
+// error.html?code=500
+
+const params = new URLSearchParams(
+    window.location.search
+);
+
+let code = parseInt(
+    params.get("code"),
+    10
+);
+
+
+// Jeżeli nie ma kodu
+// używamy 404
+
+if(!errors[code]){
+    code = 404;
+}
+
+
+const error = errors[code];
+
+document.getElementById("error-code")
+    .textContent = code;
+
+document.getElementById("error-title")
+    .textContent = error.title;
+
+document.getElementById("error-text")
+    .innerHTML = error.text;
+
+document.getElementById("year")
+    .textContent = new Date().getFullYear();
+
+document.title =
+    `${code} – ${error.title} | DJ Adam Wierzgoń`;
+
+</script>
+
+</body>
+</html>

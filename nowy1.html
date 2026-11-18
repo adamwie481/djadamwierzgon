@@ -176,21 +176,6 @@ section{position:relative}
 .eq i:nth-child(9){animation-delay:-.25s}
 @keyframes eq{0%,100%{height:15%}50%{height:100%}}
 
-/* ===== TRUST BAR ===== */
-.trust{
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  background:var(--bg-2);
-}
-.trust-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-  padding:34px 0;text-align:center;
-}
-.trust-item strong{
-  display:block;font-family:'Space Grotesk',sans-serif;
-  font-size:1.5rem;color:var(--gold);margin-bottom:4px;
-}
-.trust-item span{color:var(--muted);font-size:.92rem}
-
 /* ===== SECTION HEAD ===== */
 .pad{padding:110px 0}
 .kicker{
@@ -348,27 +333,12 @@ section{position:relative}
 }
 .contact-email:hover{color:#fff}
 
-footer{padding:34px 0 100px;text-align:center;color:#6d6980;font-size:.9rem;border-top:1px solid var(--line)}
-
-/* ===== MOBILE STICKY BAR ===== */
-.mobile-bar{
-  display:none;
-  position:fixed;left:12px;right:12px;bottom:12px;z-index:60;
-  gap:10px;
-}
-.mobile-bar a{
-  flex:1;display:flex;justify-content:center;align-items:center;gap:8px;
-  padding:15px;border-radius:999px;text-decoration:none;font-weight:600;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);
-}
-.mobile-bar .m-call{background:var(--gold);color:#14110a}
-.mobile-bar .m-mail{background:rgba(30,27,42,.95);color:#fff;border:1px solid rgba(255,255,255,.18)}
+footer{padding:34px 0;text-align:center;color:#6d6980;font-size:.9rem;border-top:1px solid var(--line)}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width:900px){
   .cards{grid-template-columns:repeat(2,1fr)}
   .reels-grid{grid-template-columns:repeat(2,1fr)}
-  .trust-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:700px){
   .nav-links a:not(.nav-cta){display:none}
@@ -376,8 +346,9 @@ footer{padding:34px 0 100px;text-align:center;color:#6d6980;font-size:.9rem;bord
   .cards,.reels-grid{grid-template-columns:1fr}
   .reel-card{aspect-ratio:1/1}
   .review{width:290px;flex:0 0 290px;padding:24px}
-  .mobile-bar{display:flex}
   .hero{padding-top:110px}
+  .buttons{flex-direction:column;align-items:center}
+  .btn{width:min(300px,100%);justify-content:center}
 }
 @media (prefers-reduced-motion:reduce){
   .eq i{animation:none;height:60%}
@@ -418,15 +389,6 @@ footer{padding:34px 0 100px;text-align:center;color:#6d6980;font-size:.9rem;bord
     </div>
   </div>
 </section>
-
-<div class="trust">
-  <div class="container trust-grid">
-    <div class="trust-item"><strong>Cały Śląsk</strong><span>Rybnik, Katowice, Gliwice i okolice</span></div>
-    <div class="trust-item"><strong>5,0 ★</strong><span>Opinie z Facebooka</span></div>
-    <div class="trust-item"><strong>Twoja playlista</strong><span>Muzyka dopasowana do gości</span></div>
-    <div class="trust-item"><strong>Animacje</strong><span>Zabawy taneczne i integracja</span></div>
-  </div>
-</div>
 
 <section id="oferta" class="pad">
   <div class="container">
@@ -554,11 +516,6 @@ footer{padding:34px 0 100px;text-align:center;color:#6d6980;font-size:.9rem;bord
 <footer>
   <div class="container" id="footer"></div>
 </footer>
-
-<div class="mobile-bar">
-  <a href="tel:+48511776380" class="m-call"><i class="fa-solid fa-phone"></i> Zadzwoń</a>
-  <a href="mailto:wierzgon.adam@gmail.com" class="m-mail"><i class="fa-solid fa-envelope"></i> E-mail</a>
-</div>
 
 <script>
 /* Linki tel: i mailto: są wpisane bezpośrednio w HTML (działają bez JS).

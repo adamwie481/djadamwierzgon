@@ -179,17 +179,14 @@ a{color:inherit}
   border-top:1px solid var(--line);
 }
 .event{
-  padding:38px 30px 38px 0;
+  padding:44px 20px;
   border-bottom:1px solid var(--line);
-  display:flex;align-items:baseline;gap:20px;
-  transition:padding .3s,color .3s;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  transition:color .3s,background .3s;
 }
-.event:nth-child(3n+2),.event:nth-child(3n){padding-left:30px;border-left:1px solid var(--line)}
+.event:nth-child(3n+2),.event:nth-child(3n){border-left:1px solid var(--line)}
 .event:hover{color:var(--gold)}
-.event small{
-  font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);
-  font-style:italic;
-}
 .event h3{font-size:1.75rem}
 
 /* ===== REELS ===== */
@@ -220,8 +217,8 @@ a{color:inherit}
 .social-block .section-title{font-size:clamp(1.9rem,4vw,2.8rem)}
 .socials{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:44px}
 .socials a{
-  display:flex;align-items:center;gap:12px;text-decoration:none;
-  padding:15px 30px;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;
+  width:210px;padding:15px 0;border:1px solid var(--line);
   font-size:.82rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
   transition:.25s;
 }
@@ -309,28 +306,17 @@ a{color:inherit}
 .contact-email:hover{color:var(--text)}
 
 footer{
-  padding:34px 0 100px;text-align:center;color:#6f6a60;
+  padding:34px 0;text-align:center;color:#6f6a60;
   font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;
   border-top:1px solid var(--line);
 }
-
-/* ===== MOBILE BAR ===== */
-.mobile-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bg);border-top:1px solid var(--line)}
-.mobile-bar a{
-  flex:1;display:flex;justify-content:center;align-items:center;gap:10px;
-  padding:17px;text-decoration:none;
-  font-size:.8rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
-}
-.m-call{background:var(--gold);color:#14110a}
-.m-mail{color:var(--text)}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width:900px){
   .offer-intro{grid-template-columns:1fr;gap:26px;margin-bottom:56px}
   .events{grid-template-columns:repeat(2,1fr)}
-  .event,.event:nth-child(3n+2),.event:nth-child(3n){padding:30px 20px;border-left:none}
+  .event,.event:nth-child(3n+2),.event:nth-child(3n){padding:34px 16px;border-left:none}
   .event:nth-child(even){border-left:1px solid var(--line)}
-  .event:nth-child(odd){padding-left:0}
   .reels-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:700px){
@@ -339,12 +325,14 @@ footer{
   .pad{padding:84px 0}
   .events{grid-template-columns:1fr}
   .event,.event:nth-child(even),.event:nth-child(odd){padding:26px 0;border-left:none}
+  .socials{flex-direction:column;align-items:center}
+  .socials a{width:min(280px,100%)}
   .reels-grid{grid-template-columns:1fr}
   .reel-img{aspect-ratio:1/1}
   .review{width:300px;flex:0 0 300px;padding:6px 30px}
   .review p{font-size:1.2rem}
-  .mobile-bar{display:flex}
-  .btn{padding:15px 26px}
+  .buttons{flex-direction:column;align-items:center}
+  .btn{width:min(300px,100%);justify-content:center;padding:16px 0}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -391,12 +379,12 @@ footer{
     </div>
 
     <div class="events">
-      <div class="event"><small>01</small><h3>Urodziny</h3></div>
-      <div class="event"><small>02</small><h3>Rocznice ślubu</h3></div>
-      <div class="event"><small>03</small><h3>Wesela</h3></div>
-      <div class="event"><small>04</small><h3>Karnawały</h3></div>
-      <div class="event"><small>05</small><h3>Imprezy rodzinne</h3></div>
-      <div class="event"><small>06</small><h3>Imprezy okolicznościowe</h3></div>
+      <div class="event"><h3>Urodziny</h3></div>
+      <div class="event"><h3>Rocznice ślubu</h3></div>
+      <div class="event"><h3>Wesela</h3></div>
+      <div class="event"><h3>Karnawały</h3></div>
+      <div class="event"><h3>Imprezy rodzinne</h3></div>
+      <div class="event"><h3>Imprezy okolicznościowe</h3></div>
     </div>
   </div>
 </section>
@@ -507,11 +495,6 @@ footer{
 </section>
 
 <footer id="footer"></footer>
-
-<div class="mobile-bar">
-  <a href="tel:+48511776380" class="m-call"><i class="fa-solid fa-phone"></i> Zadzwoń</a>
-  <a href="mailto:wierzgon.adam@gmail.com" class="m-mail"><i class="fa-solid fa-envelope"></i> E-mail</a>
-</div>
 
 <script>
 /* Linki tel: i mailto: są wpisane bezpośrednio w HTML (działają bez JS).

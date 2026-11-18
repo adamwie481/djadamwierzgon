@@ -241,9 +241,9 @@ section{position:relative}
 /* ===== SOCIAL ===== */
 .socials{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:40px}
 .socials a{
-  display:flex;align-items:center;gap:12px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
   text-decoration:none;font-weight:600;
-  padding:16px 28px;border-radius:999px;
+  width:200px;padding:16px 0;border-radius:999px;
   border:1px solid var(--line);
   background:var(--card);
   transition:.25s;
@@ -349,6 +349,8 @@ footer{padding:34px 0;text-align:center;color:#6d6980;font-size:.9rem;border-top
   .hero{padding-top:110px}
   .buttons{flex-direction:column;align-items:center}
   .btn{width:min(300px,100%);justify-content:center}
+  .socials{flex-direction:column;align-items:center}
+  .socials a{width:min(280px,100%)}
 }
 @media (prefers-reduced-motion:reduce){
   .eq i{animation:none;height:60%}
